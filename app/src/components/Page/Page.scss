@@ -1,0 +1,8 @@
+// Styling for the navbar
+@import 'styles/colors.scss'; // assuming a styles directory under src/
+@import 'styles/mixins.scss';
+
+article,
+section > .container {
+  padding-bottom: 120px;
+}

@@ -1,0 +1,63 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: "directus"
+      MYSQL_USER: "directus"
+      MYSQL_PASSWORD: "directus"
+      MYSQL_ROOT_PASSWORD: "directus"
+    ports:
+      - "3306:3306"
+    networks:
+      - site
+  directus:
+    build:
+      context: ./directus
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      DIRECTUS_APP_ENV: "production"
+      DIRECTUS_AUTH_PUBLICKEY: "temp-public-key"
+      DIRECTUS_AUTH_SECRETKEY: "temp-secret-key"
+      DIRECTUS_DATABASE_HOST: "mysql"
+      DIRECTUS_DATABASE_PORT: "3306"
+      DIRECTUS_DATABASE_NAME: "directus"
+      DIRECTUS_DATABASE_USERNAME: "directus"
+      DIRECTUS_DATABASE_PASSWORD: "directus"
+      DIRECTUS_CORS_ENABLED:
+      DIRECTUS_CORS_ORIGIN:
+
+    volumes:
+      - ./directus/data/config:/var/directus/config
+      - ./directus/data/uploads:/var/directus/public/uploads
+    links:
+      - mysql:mysql
+    depends_on:
+      - mysql
+    networks:
+      - site
+  app:
+    stdin_open: true
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    volumes:
+      - "./app:/app"
+      - "/app/node_modules"
+    ports:
+      - "3001:3000"
+    environment:
+      env_file: .env
+      NODE_ENV: development
+      REACT_APP_BASE_API_URL: http://localhost:8080/
+      REACT_APP_AUTH_TOKEN: dofUvNoEaY7pG9jfqY58mKZHqEPqBVgQ # Change 
+    depends_on:
+      - directus
+    links:
+      - directus
+    networks:
+      - site
+networks:
+  site:

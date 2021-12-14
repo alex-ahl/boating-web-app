@@ -1,0 +1,21 @@
+FROM node:13.8 as build
+WORKDIR /app
+
+ENV PATH=/app/node_modules/.bin:$PATH
+ENV SASS_PATH=/app/node_modules:src
+
+COPY package.json /app/package.json
+
+RUN yarn install --ignore-engines
+RUN yarn global add react-scripts@3.4.1 --ignore-engines 
+RUN yarn add node-sass
+
+COPY . /app
+COPY .env.prod .env
+
+RUN yarn run build
+RUN yarn global add serve
+
+EXPOSE 3001
+CMD ["serve", "-s", "build", "-l", "3001"]
+

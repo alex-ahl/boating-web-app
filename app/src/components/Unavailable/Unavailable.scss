@@ -1,0 +1,17 @@
+@import 'styles/colors.scss';
+@import 'styles/mixins.scss';
+
+#error-wrapper {
+  background-color: #fff;
+}
+.error-wrapper {
+  background-color: $primary;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  h2 {
+    color: #fff;
+  }
+}

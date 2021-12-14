@@ -1,0 +1,29 @@
+// Styling for the navbar
+@import 'styles/colors.scss'; // assuming a styles directory under src/
+@import 'styles/mixins.scss';
+
+.router-wrapper {
+  .fade-enter {
+    opacity: 0.01;
+  }
+
+  .fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+  }
+
+  .fade-exit {
+    opacity: 1;
+  }
+
+  .fade-exit.fade-exit-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
+}
+
+section.route-section {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+}
