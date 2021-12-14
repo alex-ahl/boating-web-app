@@ -36,7 +36,7 @@ Created with <code>Create-React-App</code>
 In the utils folders you can find script to dump and restore the db from the mysql docker container. <br><br>
 
 Run <code>database-dump.sh</code> to create a backup of the current directus db. <br>
-Run <code>database-restore.sh</code>
+Run <code>database-restore.sh</code> to restore site.sql from /directus directory.
 <br><br>
 
 # Features
